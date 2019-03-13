@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.prefs.AbstractPreferences;
+
 public class MainActivity extends AppCompatActivity {
     private int counter = 100;
     private  boolean running=false;
@@ -24,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle SavedInstanceState){
-        super.onSaveInstanceState(SavedInstanceState);
-       // savedInstanceState.putInt(CURRENT_COUNTER,counter);
+    public void onSaveInstanceState(Bundle SaveInstanceState){
+        super.onSaveInstanceState(SaveInstanceState);
+        SaveInstanceState.putInt(CURRENT_COUNTER,counter);
     }
 
     private void countdown() {
@@ -63,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
+        running = false;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        running = true;
     }
 
     @Override
@@ -74,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        wasRunning = true;
+        running = false;
+
     }
 
 
